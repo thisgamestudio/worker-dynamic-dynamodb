@@ -66,4 +66,6 @@ WORKDIR /stockflare
 
 ADD boot boot
 
+EXPOSE 8080
+
 CMD ["./boot"]
