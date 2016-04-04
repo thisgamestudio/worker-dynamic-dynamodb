@@ -37,7 +37,9 @@ reads-lower-alarm-threshold: {{getenv "READS_LOWER_ALARM_THRESHOLD"}}
 {{ end }}
 
 # Enable or disable reads autoscaling
-enable-reads-autoscaling = {{getenv "ENABLE_READS_AUTOSCALING"}}
+#enable-reads-autoscaling = {{getenv "ENABLE_READS_AUTOSCALING"}}
+enable-reads-up-scaling = {{getenv "ENABLE_READS_UP_SCALING"}}
+enable-reads-down-scaling = {{getenv "ENABLE_READS_DOWN_SCALING"}}
 
 # Thresholds for scaling up or down the provisioning
 reads-upper-threshold: {{getenv "READS_UPPER_THRESHOLD"}}
@@ -63,7 +65,9 @@ writes-lower-alarm-threshold: {{getenv "WRITES_LOWER_ALARM_THRESHOLD"}}
 {{ end }}
 
 # Enable or disable writes autoscaling
-enable-writes-autoscaling = {{getenv "ENABLE_WRITES_AUTOSCALING"}}
+#enable-writes-autoscaling = {{getenv "ENABLE_WRITES_AUTOSCALING"}}
+enable-writes-up-scaling = {{getenv "ENABLE_WRITES_UP_SCALING"}}
+enable-writes-down-scaling = {{getenv "ENABLE_WRITES_DOWN_SCALING"}}
 
 # Thresholds for scaling up or down the provisioning (%)
 writes-upper-threshold: {{getenv "WRITES_UPPER_THRESHOLD"}}
@@ -81,6 +85,69 @@ decrease-writes-unit: {{getenv "DECREASE_WRITES_UNIT"}}
 # Dynamic DynamoDB will not provision any more or less writes than this
 min-provisioned-writes: {{getenv "MIN_PROVISIONED_WRITES"}}
 max-provisioned-writes: {{getenv "MAX_PROVISIONED_WRITES"}}
+
+
+#### GSI
+
+[gsi: {{getenv "DYNAMODB_GSI_REGEXP"}} table: {{getenv "DYNAMODB_TABLE_REGEXP"}}]
+
+{{ if getenv "NOTIFICATION_SERVICE_ENABLED"}}
+# Thresholds for trigging throughput alarm to send notification
+reads-upper-alarm-threshold: {{getenv "READS_UPPER_ALARM_THRESHOLD"}}
+reads-lower-alarm-threshold: {{getenv "READS_LOWER_ALARM_THRESHOLD"}}
+{{ end }}
+
+# Enable or disable reads autoscaling
+#enable-reads-autoscaling = {{getenv "ENABLE_READS_AUTOSCALING"}}
+enable-reads-up-scaling = {{getenv "ENABLE_READS_UP_SCALING"}}
+enable-reads-down-scaling = {{getenv "ENABLE_READS_DOWN_SCALING"}}
+
+# Thresholds for scaling up or down the provisioning
+reads-upper-threshold: {{getenv "READS_UPPER_THRESHOLD"}}
+reads-lower-threshold: {{getenv "READS_LOWER_THRESHOLD"}}
+
+# How many percent should Dynamic DynamoDB increase/decrease provisioning with
+increase-reads-with: {{getenv "INCREASE_READS_WITH"}}
+decrease-reads-with: {{getenv "DECREASE_READS_WITH"}}
+
+# Units to increase or decrease reads with, must be either percent or units
+increase-reads-unit: {{getenv "INCREASE_READS_UNIT"}}
+decrease-reads-unit: {{getenv "DECREASE_READS_UNIT"}}
+
+# Maximum and minimum read provisioning
+# Dynamic DynamoDB will not provision any more or less reads than this
+min-provisioned-reads: {{getenv "MIN_PROVISIONED_READS"}}
+max-provisioned-reads: {{getenv "MAX_PROVISIONED_READS"}}
+
+{{ if getenv "NOTIFICATION_SERVICE_ENABLED"}}
+# Threshold for trigging throughput alarm to send notification (%)
+writes-upper-alarm-threshold: {{getenv "WRITES_UPPER_ALARM_THRESHOLD"}}
+writes-lower-alarm-threshold: {{getenv "WRITES_LOWER_ALARM_THRESHOLD"}}
+{{ end }}
+
+# Enable or disable writes autoscaling
+#enable-writes-autoscaling = {{getenv "ENABLE_WRITES_AUTOSCALING"}}
+enable-writes-up-scaling = {{getenv "ENABLE_WRITES_UP_SCALING"}}
+enable-writes-down-scaling = {{getenv "ENABLE_WRITES_DOWN_SCALING"}}
+
+# Thresholds for scaling up or down the provisioning (%)
+writes-upper-threshold: {{getenv "WRITES_UPPER_THRESHOLD"}}
+writes-lower-threshold: {{getenv "WRITES_LOWER_THRESHOLD"}}
+
+# How many percent should Dynamic DynamoDB increase/decrease provisioning with (%)
+increase-writes-with: {{getenv "INCREASE_WRITES_WITH"}}
+decrease-writes-with: {{getenv "DECREASE_WRITES_WITH"}}
+
+# Units to increase or decrease writes with, must be either percent or units
+increase-writes-unit: {{getenv "INCREASE_WRITES_UNIT"}}
+decrease-writes-unit: {{getenv "DECREASE_WRITES_UNIT"}}
+
+# Maximum and minimum write provisioning
+# Dynamic DynamoDB will not provision any more or less writes than this
+min-provisioned-writes: {{getenv "MIN_PROVISIONED_WRITES"}}
+max-provisioned-writes: {{getenv "MAX_PROVISIONED_WRITES"}}
+
+
 
 {{ if getenv "MAINTENANCE_WINDOWS_ENABLED"}}
 #
